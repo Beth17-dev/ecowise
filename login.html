@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>EcoWise Login</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial;
+      background: #2ecc71;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .container {
+      display: flex;
+      width: 600px;
+      background: #2ecc71;
+      box-shadow: 0 0 10px rgba(0,0,0,0.3);
+    }
+
+    .left {
+      width: 40%;
+      background: #0f6b5b;
+      color: white;
+      text-align: center;
+      padding: 30px;
+    }
+
+    .left img {
+      width: 100px;
+    }
+
+    .right {
+      width: 60%;
+      padding: 30px;
+    }
+
+    input {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+    }
+
+    button {
+      padding: 10px 20px;
+      margin: 10px 5px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+
+<body>
+
+<div class="container">
+  
+  <div class="left">
+    <img src="logo.png">
+    <h2>EcoWise</h2>
+  </div>
+
+  <div class="right">
+    <h3>Username</h3>
+    <input type="text">
+
+    <h3>Password</h3>
+    <input type="password">
+
+    <button onclick="login()">Login</button>
+    <button onclick="goRegister()">Register</button>
+  </div>
+
+</div>
+
+<script>
+function login() {
+  let username = document.querySelector("input[type='text']").value;
+  let password = document.querySelector("input[type='password']").value;
+
+  let users = JSON.parse(localStorage.getItem("users")) || [];
+
+  // Check if user exists
+  let user = users.find(u => u.username === username && u.password === password);
+
+  if (user) {
+    // Save logged-in user
+    localStorage.setItem("currentUser", username);
+
+    alert("Login successful!");
+    window.location.href = "dashboard.html";
+  } else {
+    alert("Invalid username or password");
+  }
+}
+
+function goRegister() {
+  window.location.href = "register.html";
+}
+</script>
+
+</body>
+</html>

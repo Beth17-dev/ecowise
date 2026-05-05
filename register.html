@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>EcoWise Register</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial;
+      background: #2ecc71;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .container {
+      display: flex;
+      width: 600px;
+      background: #2ecc71;
+      box-shadow: 0 0 10px rgba(0,0,0,0.3);
+    }
+
+    .left {
+      width: 40%;
+      background: #0f6b5b;
+      color: white;
+      text-align: center;
+      padding: 30px;
+    }
+
+    .left img {
+      width: 100px;
+    }
+
+    .right {
+      width: 60%;
+      padding: 30px;
+    }
+
+    input {
+      width: 100%;
+      padding: 10px;
+      margin: 8px 0;
+    }
+
+    button {
+      padding: 10px 20px;
+      margin: 10px 5px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+
+<body>
+
+<div class="container">
+  
+  <!-- LEFT SIDE -->
+  <div class="left">
+    <img src="logo.png">
+    <h2>EcoWise</h2>
+  </div>
+
+  <!-- RIGHT SIDE -->
+  <div class="right">
+    <h3>Username</h3>
+    <input type="text" id="username">
+
+    <h3>Password</h3>
+    <input type="password" id="password">
+
+    <h3>Confirm Password</h3>
+    <input type="password" id="confirmPassword">
+
+    <button onclick="register()">Register</button>
+    <button onclick="goLogin()">Back to Login</button>
+  </div>
+
+</div>
+
+<script>
+function register() {
+  let username = document.getElementById("username").value;
+  let password = document.getElementById("password").value;
+  let confirm = document.getElementById("confirmPassword").value;
+
+  if (username === "" || password === "") {
+    alert("Please fill all fields");
+    return;
+  }
+
+  if (password !== confirm) {
+    alert("Passwords do not match");
+    return;
+  }
+
+  // Get existing users
+  let users = JSON.parse(localStorage.getItem("users")) || [];
+
+  // Check if username already exists
+  let exists = users.find(user => user.username === username);
+  if (exists) {
+    alert("Username already exists!");
+    return;
+  }
+
+  // Save new user
+  users.push({ username: username, password: password });
+  localStorage.setItem("users", JSON.stringify(users));
+
+  alert("Registered successfully!");
+  window.location.href = "login.html";
+}
+
+function goLogin() {
+  window.location.href = "login.html";
+}
+</script>
+
+</body>
+</html>
